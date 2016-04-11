@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// STATIC ROUTES GO HERE
+
+// DYNAMIC MODULE ROUTING
+Route::any(
+    '/{module}/{controller?}/{action?}',
+    function ($strModule, $strController = 'index', $strAction = 'index') {
+        Route::controller($strAction, $strModule . '\\' . $strController . 'Controller');
+    }
+);
