@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Ivy\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
 class InstallModule extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -48,5 +47,4 @@ class InstallModule extends Command
         // @todo ADD MODULE TO PHP LISTS - service provider? facade? general list of Ivy modules?
 
     }
-
 }

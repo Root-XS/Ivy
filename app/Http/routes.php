@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@getIndex');
+Route::auth();
 
-// STATIC ROUTES GO HERE
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/home', 'HomeController@getIndex');
+});
 
 // DYNAMIC MODULE ROUTING
 Route::any(

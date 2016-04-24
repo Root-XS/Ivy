@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Ivy\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,11 +13,10 @@ use Illuminate\Support\ServiceProvider;
 *
 * @author Kamran Ahmed <kamranahmed.se@gmail.com>
 * @see http://kamranahmed.info/blog/2015/12/03/creating-a-modular-application-in-laravel/
-* @package App\Providers
+* @package Ivy\Providers
 */
 class ModuleServiceProvider extends ServiceProvider
 {
-
     /**
      * Will make sure that the required modules have been fully loaded
      * @return void
@@ -45,5 +44,4 @@ class ModuleServiceProvider extends ServiceProvider
 
     /** [register description] */
     public function register() {}
-
 }

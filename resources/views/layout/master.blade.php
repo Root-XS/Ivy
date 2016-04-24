@@ -32,17 +32,15 @@
 </head>
 
 <body>
-    @if (isset($bGuestHome) && $bGuestHome)
+    @if ($bGuestHome ?? false)
     <img src="/img/jumbotron.jpg">
     @endif
     <div id="body">
 
-        <header role="navigation">
-            <div class="container">
-                @include('layout.nav-mobile')
-                @include('layout.nav')
-            </div>
+        <header>
+            @include('layout.nav')
         </header>
+
         @if ($__env->yieldContent('subnav'))
         @include('layout.subnav')
         @endif
@@ -58,7 +56,7 @@
         </div>
         @endif
 
-        @if (isset($bGuestHome) && $bGuestHome)
+        @if ($bGuestHome ?? false)
         @yield('content')
         @else
         <div class="container">
@@ -78,7 +76,6 @@
     </footer>
 
     {!! HTML::script('/js/require.js?v=0.0', ['data-main' => '/js/main', 'async' => ''], Config::get('app.forceHttps')) !!}
-    @include('layout.tracking')
 
 </body>
 </html>

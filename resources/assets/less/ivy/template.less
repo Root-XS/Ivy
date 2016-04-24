@@ -1,0 +1,44 @@
+/**
+ * Header/Nav
+ */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+
+    .navbar-collapse {
+        padding: 0;
+    }
+}
+
+/**
+ * Sticky Footer & header
+ */
+html, body {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+#body {
+    width: 100%; // not related to footer
+    min-height: 100%;
+    margin-bottom: -100px;
+    padding-top: @navbar-height + @grid-gutter-width; // for header
+
+    &:after {
+        display: block;
+        content: "";
+    }
+}
+footer, #body:after {
+    height: 100px;
+}
+footer {
+    clear: both;
+    background: @gray-lighter;
+    text-align: center;
+
+    > .container {
+        padding: 24px 0;
+    }
+}

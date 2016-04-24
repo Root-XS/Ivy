@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Ivy\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 
 class UninstallModule extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -48,5 +47,4 @@ class UninstallModule extends Command
         // @todo REMOVE MODULE FROM PHP LISTS - service provider? facade? general list of Ivy modules?
 
     }
-
 }

@@ -151,15 +151,20 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Ivy\Providers\AppServiceProvider::class,
+        Ivy\Providers\AuthServiceProvider::class,
+        Ivy\Providers\EventServiceProvider::class,
+        Ivy\Providers\RouteServiceProvider::class,
 
         /*
          * Custom Providers
          */
-        App\Providers\ModuleServiceProvider::class,
+        Ivy\Providers\ModuleServiceProvider::class,
+
+        /*
+         * Misc vendors
+         */
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -206,6 +211,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        // Misc vendors
+        'Form'      => Collective\Html\FormFacade::class,
+        'HTML'      => Collective\Html\HtmlFacade::class,
 
     ],
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Ivy\Http\Controllers\Auth;
 
-use App\User;
+use Ivy\Model\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Ivy\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -43,30 +43,27 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $aData
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $aData)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
+        return Validator::make($aData, [
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8|confirmed',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $aData
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $aData)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return User::create($aData);
     }
 }

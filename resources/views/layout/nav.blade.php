@@ -1,25 +1,24 @@
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <nav>
-            <ul class="nav navbar-nav navbar-right">
+    <nav class="navbar navbar-default">
+        <div class="container">
 
-                @if (Auth::check())
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        My Account ({{ Auth::user()->firstname }}) <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <!--<li>{!! HTML::link('about', 'How It Works') !!}</li>-->
-                        <li>{!! HTML::link('user', 'Edit Profile') !!}</li>
-                        <li>{!! HTML::link('profile/password', 'Change Password') !!}</li>
-                        <li class="divider"></li>
-                        <li>{!! HTML::link('logout', 'Logout') !!}</li>
-                    </ul>
-                </li>
-                @else
-                <br>
-                @include('auth.form.login')
-                @endif
+            {{-- Brand and toggle (for mobile) --}}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ivy-nav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    Ivy
+                    {{-- <img src="..."> --}}
+                </a>
+            </div>
 
-            </ul>
-        </nav>
-    </div>
+            {{-- Nav elements for toggling --}}
+            <div class="collapse navbar-collapse" id="ivy-nav">
+                @include('layout.nav.' . (Auth::guest() ? 'guest' : 'member'))
+            </div>
+
+        </div>
+    </nav>
