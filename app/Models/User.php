@@ -41,4 +41,21 @@ class User extends Authenticatable
     {
         $this->fullname = $strValue;
     }
+
+    /** @return Illuminate\Database\Eloquent\Collection */
+    public function abilities()
+    {
+        return $this->belongsToMany('Ivy\Model\Ability', 'user_abilities');
+    }
+
+    /**
+     * Does the User have the requested ability?
+     *
+     * @param string $strAbility The ability to check for (matches user_abilities.name).
+     * @return bool
+     */
+    public function hasAbility($strAbility)
+    {
+        return $this->abilities->contains('name', $strAbility);
+    }
 }

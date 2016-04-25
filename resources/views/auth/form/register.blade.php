@@ -31,6 +31,7 @@
             @endif
         </div>
 
+        @if ($bRequirePassword ?? true)
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
             <input type="password" class="form-control" name="password" placeholder="Password">
 
@@ -50,10 +51,9 @@
             </span>
             @endif
         </div>
+        @endif
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">
-                Register
-            </button>
-        </div>
+        <button type="submit" class="btn btn-primary">
+            {{ $bRequirePassword ?? true ? 'Register' : 'Create' }}
+        </button>
     </form>

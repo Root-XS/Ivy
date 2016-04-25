@@ -1,11 +1,21 @@
     <ul class="nav navbar-nav">
-        <li>
-            <a href="#">
-                Home
+        <li{!! 'people' === $strController ? ' class="active"' : '' !!}>
+            <a href="/people">
+                People
+                @if ('people' === $strController)
                 <span class="sr-only">(current)</span>
+                @endif
             </a>
         </li>
-        <li class="dropdown active">
+        <li{!! 'groups' === $strController ? ' class="active"' : '' !!}>
+            <a href="/groups">
+                Groups
+                @if ('groups' === $strController)
+                <span class="sr-only">(current)</span>
+                @endif
+            </a>
+        </li>
+        <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Dropdown <span class="caret"></span>
             </a>

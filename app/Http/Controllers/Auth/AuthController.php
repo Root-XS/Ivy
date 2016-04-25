@@ -7,6 +7,8 @@ use Validator;
 use Ivy\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -24,20 +26,43 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout', 'register']]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * Overrides parent::register().
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $oUser = $this->create($request->all());
+
+        if (Auth::user() && Auth::user()->hasAbility('create-users')) {
+            $strRedirect = '/people/edit/' . $oUser->id;
+        } else {
+            Auth::guard($this->getGuard())->login($oUser);
+            $strRedirect = $this->redirectPath();
+        }
+
+        return redirect($strRedirect);
     }
 
     /**
@@ -52,7 +77,9 @@ class AuthController extends Controller
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:8|confirmed',
+            // Password not required when an Admin is adding people.
+            'password' => (Auth::user() && Auth::user()->hasAbility('create-users') ? '' : 'required|')
+                . 'min:8|confirmed',
         ]);
     }
 
@@ -64,6 +91,8 @@ class AuthController extends Controller
      */
     protected function create(array $aData)
     {
+        if (isset($aData['password']))
+            $aData['password'] = bcrypt($aData['password']);
         return User::create($aData);
     }
 }

@@ -16,6 +16,12 @@ Route::auth();
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', 'HomeController@getIndex');
+
+    Route::controller('/people', 'PeopleController');
+    Route::get('/people/edit/{id}', 'PeopleController@getEdit');
+    Route::post('/people/edit/{id}', 'PeopleController@postEdit');
+
+    Route::get('/groups', 'GroupsController@getIndex');
 });
 
 // DYNAMIC MODULE ROUTING
