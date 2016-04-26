@@ -34,6 +34,9 @@
                     {{ $oUser->name }}
                 </a>
                 @endforeach
+                @if (!$cResults->count())
+                <div class="list-group-item">No people found.</div>
+                @endif
             </div>
         </div>
     </div>

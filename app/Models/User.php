@@ -48,6 +48,12 @@ class User extends Authenticatable
         return $this->belongsToMany('Ivy\Model\Ability', 'user_abilities');
     }
 
+    /** @return Illuminate\Database\Eloquent\Collection */
+    public function groups()
+    {
+        return $this->belongsToMany('Ivy\Model\Group');
+    }
+
     /**
      * Does the User have the requested ability?
      *

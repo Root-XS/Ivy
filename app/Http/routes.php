@@ -21,7 +21,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/people/edit/{id}', 'PeopleController@getEdit');
     Route::post('/people/edit/{id}', 'PeopleController@postEdit');
 
-    Route::get('/groups', 'GroupsController@getIndex');
+    Route::controller('/groups', 'GroupsController');
+    Route::get('/groups/edit/{id}', 'GroupsController@getEdit');
+    Route::post('/groups/edit/{id}', 'GroupsController@postEdit');
+    Route::get('/groups/tag/{iTagId}', 'GroupsController@getTag');
 });
 
 // DYNAMIC MODULE ROUTING
