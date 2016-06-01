@@ -25,7 +25,8 @@ class ModuleServiceProvider extends ServiceProvider
     {
         // For each of the registered modules, include their routes and Views
         // @todo - IVY - FIGURE OUT WHERE THIS ARRAY COMES FROM
-        $modules = config("module.modules");
+        $modules = config('module.modules');
+        $modules = [];
 
         foreach ($modules as $module) {
             // @todo - IVY - UPDATE THESE PATHS

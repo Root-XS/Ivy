@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "rootxs/ivy",
+    "description": "Ivy OMP",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
