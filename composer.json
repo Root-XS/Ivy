@@ -1,34 +1,36 @@
 {
-    "name": "rootxs/ivy",
+    "name": "rootxs\/ivy",
     "description": "Ivy OMP",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
-
-        "laravelcollective/html": "5.*"
+        "laravel\/framework": "5.2.*",
+        "laravelcollective\/html": "5.*"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~4.0",
-        "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
+        "fzaninotto\/faker": "~1.4",
+        "mockery\/mockery": "0.9.*",
+        "phpunit\/phpunit": "~4.0",
+        "symfony\/css-selector": "2.8.*|3.0.*",
+        "symfony\/dom-crawler": "2.8.*|3.0.*"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "Ivy\\": "app/",
-            "Ivy\\Model\\": "app/Models/"
+            "Ivy\\": "app\/",
+            "Ivy\\Model\\": "app\/Models\/"
         }
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests\/TestCase.php"
         ]
     },
     "scripts": {

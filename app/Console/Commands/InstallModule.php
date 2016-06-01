@@ -12,7 +12,7 @@ class InstallModule extends Command
      *
      * @var string
      */
-    protected $signature = 'install-module {vendor}/{package}';
+    protected $signature = 'module:install {vendorPackage} {--sp=}';
 
     /**
      * The console command description.
@@ -28,23 +28,58 @@ class InstallModule extends Command
      */
     public function handle()
     {
-        $strPackage = $this->argument('vendor') . '/' . $this->argument('package');
-
         // Install the package with composer
         $this->comment(PHP_EOL . 'Updating composer.json...' . PHP_EOL);
 
         $aComposerJson = json_decode(file_get_contents(base_path('composer.json')), true);
-        $aComposerJson['require'][$strPackage] = '>=1.0'; // @todo THIS PROBABLY DOESN'T WORK
-        file_put_contents(base_path('composer.json'), json_encode($aComposerJson));
-        shell_exec('compser update');
+        $aComposerJson['require'][$this->argument('vendorPackage')] = '0.*';
+        file_put_contents(base_path('composer.json'), json_encode($aComposerJson, JSON_PRETTY_PRINT));
+        shell_exec('composer update');
+
+        // Add module service provider
+        // @todo facade? general list of Ivy modules?
+        $this->comment(PHP_EOL . 'Updating config/app.php...' . PHP_EOL);
+        $strAppConfig = file_get_contents(config_path('app.php'));
+        if (!strpos($strAppConfig, $this->getServiceProvider())) {
+            $strAppConfig = str_replace(
+                '/* Begin Ivy Modules */',
+                '/* Begin Ivy Modules */' . "\n        "
+                    . $this->getServiceProvider(),
+                $strAppConfig
+            );
+            file_put_contents(config_path('app.php'), $strAppConfig);
+        }
 
         // Copy config, JS, & CSS files
         // @todo SEE https://laravel.com/docs/master/packages#public-assets
+        $this->call('config:clear');
         $this->call('vendor:publish');
 
         // @todo ADD CSS/JS FILES TO HEADER
 
-        // @todo ADD MODULE TO PHP LISTS - service provider? facade? general list of Ivy modules?
+    }
 
+    /**
+     *
+     */
+    protected function getServiceProvider()
+    {
+        // Use user-specified input when available
+        $strReturn = $this->option('sp');
+
+        // Otherwise, figure it out from the vendorPackage
+        if (!$strReturn) {
+            $iSlashPos = strpos($this->argument('vendorPackage'), '/');
+            $strReturn = substr_replace(
+                studly_case(
+                    str_replace('/', '-', $this->argument('vendorPackage'))
+                ),
+                '\\',
+                $iSlashPos,
+                0
+            );
+        }
+
+        return $strReturn . 'ServiceProvider::class';
     }
 }

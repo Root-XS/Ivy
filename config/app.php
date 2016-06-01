@@ -166,6 +166,9 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
 
+        /* Begin Ivy Modules */
+        /* End Ivy Modules */
+
     ],
 
     /*
