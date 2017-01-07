@@ -11,11 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@getIndex');
+Route::auth();
 
-// STATIC ROUTES GO HERE
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/home', 'HomeController@getIndex');
+
+    Route::controller('/people', 'PeopleController');
+    Route::get('/people/edit/{id}', 'PeopleController@getEdit');
+    Route::post('/people/edit/{id}', 'PeopleController@postEdit');
+
+    Route::controller('/groups', 'GroupsController');
+    Route::get('/groups/edit/{id}', 'GroupsController@getEdit');
+    Route::post('/groups/edit/{id}', 'GroupsController@postEdit');
+    Route::get('/groups/tag/{iTagId}', 'GroupsController@getTag');
+});
 
 // DYNAMIC MODULE ROUTING
 Route::any(
