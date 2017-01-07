@@ -43,7 +43,7 @@ class InstallModule extends Command
         // @todo SEE https://laravel.com/docs/master/packages#public-assets
         $this->call('vendor:publish');
 
-        // @todo ADD CSS/JS FILES TO HEADER
+        // @todo ADD CSS/JS FILES TO HEADER - can this be part of the config file?
 
         // @todo ADD MODULE TO PHP LISTS - service provider? facade? general list of Ivy modules?
 
